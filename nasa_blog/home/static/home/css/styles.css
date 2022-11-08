@@ -11122,7 +11122,7 @@ header.masthead {
   margin-bottom: 3rem;
   padding-top: calc(8rem + 57px);
   padding-bottom: 8rem;
-  background: no-repeat center center;
+  background: no-repeat center 35%;
   background-color: #6c757d;
   background-size: cover;
   background-attachment: scroll;
@@ -11312,4 +11312,11 @@ background-image:url("{%  static 'home/assets/img/about-bg.jpg' %}");
 .button_custom_left:active {
 	position:relative;
 	top:1px;
+}
+
+#galery_column{
+  column-count:2;
+  column-gap:20px;
+  column-rule:4px groove slategray;
+  list-style: none;
 }

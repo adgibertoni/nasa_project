@@ -23,12 +23,13 @@ Picture list
 
 
 {% block nasa_blog_content %}
+    <div >
     {% for picture in picture_list %}
         <!-- Post preview-->
-        <div class="post-preview">
+        <div id="galery_column">
             <a href="{% url 'picture:picture-detail' picture.id %}">
                 <h2 class="post-title">{{ picture.title_name }}</h2>
-                <h4 class="post-subtitle">Capturada por {{ picture.taken_by }} en {{ picture.taken_date }}</h4>
+                <h5 class="post-subtitle">Capturada por {{ picture.taken_by }} en {{ picture.taken_date }}</h5>
                 <img height="250px" width="250px" src="{{ picture.image.url }}">
             </a>
             <!--<p class="post-meta">
@@ -37,7 +38,7 @@ Picture list
                 ( {{ picture.created_at }} )
             </p>-->
         </div>
-        </ul>
+    </div>
         <!-- Divider-->
         <hr class="my-4" />
     {% endfor %}
