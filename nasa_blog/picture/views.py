@@ -62,7 +62,8 @@ class PictureCreateView(LoginRequiredMixin, CreateView):
 
 class PictureUpdateView(LoginRequiredMixin, UpdateView):
     model = Picture
-    fields = ["title_name", "taken_by", "taken_date", "image"]
+    form_class = PictureForm
+    #fields = ["title_name", "taken_by", "taken_date", "image"]
     
     def get_success_url(self):
         picture_id = self.kwargs["pk"]

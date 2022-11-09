@@ -12,6 +12,8 @@ class PictureForm(forms.ModelForm):
             attrs={
                 "placeholder": "Ingresar el título",
                 "required": "True",
+                "rows": 2,
+                "style":"min-width: 80%",
             }
         )
     )
@@ -26,6 +28,7 @@ class PictureForm(forms.ModelForm):
             attrs={
                 "placeholder": "Ingrese quién/qué tomó la imagen",
                 "required": "True",
+                "style":"min-width: 80%",
             }
         )
     )

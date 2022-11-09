@@ -59,7 +59,7 @@ Picture detail
     <form method="POST" action="{% url 'picture:comment-create' picture.id %}">
         {% csrf_token %}
         {{ comment_form }}
-    <input type="submit" value="Publicar comentario">
+    <input class="button_custom_left" type="submit" value="Publicar comentario">
     </form>
     {% if not comments %}
         <p></p>
