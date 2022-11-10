@@ -35,7 +35,7 @@
                     <ul class="navbar-nav ms-auto py-4 py-lg-0">
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="#">Top10</a></li>
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="#">Novedades</a></li>
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="#">Galería</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'picture:picture-list' %}">Galería</a></li>
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="#">About</a></li>
                         
                         <div class="topbar-divider d-none d-sm-block"></div>
@@ -112,13 +112,13 @@
 
                     {% block pagination %}
                         <!--Pagination Class Based Views-->
-                        <!-- {% if is_paginated %}
+                        {% if is_paginated %}
                         <div class="container p-4">
                             <div class="pagination justify-content-center">
                                 <span class="step-links">
                                     {% if page_obj.has_previous %}
                                         <a href="?page=1">&laquo; first</a> |
-                                        <a href="?page={{ course_list.previous_page_number }}">previous</a> |
+                                        <a href="?page={{ page_obj.previous_page_number }}">previous</a> |
                                     {% endif %}
                         
                                     {% if page_obj.paginator.num_pages > 1 %}
@@ -134,7 +134,7 @@
                                 </span>
                             </div>
                         </div>
-                        {% endif %} -->
+                        {% endif %}
                         <!--end of Pagination-->
                     {% endblock %}
                 </div>

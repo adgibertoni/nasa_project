@@ -1,0 +1,38 @@
+{% extends "home/index.html" %}
+{% load static %}
+
+{% block nasa_blog_title %}
+Picture delete
+{% endblock %}
+
+{% block nasa_blog_header %}
+<header class="masthead" style="background-image: url('/static/home/assets/img/post-bg.jpg')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-15 col-lg-16 col-xl-14">
+                <div class="site-heading">
+                    <h1>NASA BLOG</h1>
+                    <span class="subheading">Eliminar Imagen</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+{% endblock %}
+
+
+{% block nasa_blog_content %}
+
+<h1>Está seguro que desea eliminar el posteo correspondiente?</h1>
+<h2 class="post-title">{{ picture.title_name }}</h2>
+<h4 class="post-subtitle">Capturada por {{ picture.taken_by }} el {{ picture.taken_date }}</h4>
+<img height="100px" width="100px" src="{{ picture.image.url }}">
+<p></p>           
+
+<form action="" method="POST">
+    {% csrf_token %}
+    <input class="btn btn-danger" type="submit" value="Sí, eliminar.">
+    <a class="btn btn-primary" href="{% url 'picture:picture-list' %}" >Cancelar</a>
+</form>
+
+{% endblock %}

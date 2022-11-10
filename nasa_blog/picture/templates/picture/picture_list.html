@@ -1,0 +1,47 @@
+{% extends "home/index.html" %}
+{% load static %}
+
+{% block nasa_blog_title %}
+Picture list
+{% endblock %}
+
+{% block nasa_blog_header %}
+<header class="masthead" style="background-image: url('/static/home/assets/img/post-bg.jpg')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-15 col-lg-16 col-xl-14">
+                <div class="site-heading">
+                    <h1>NASA BLOG</h1>
+                    <span class="subheading">Galería de Imágenes</span>
+                </div>
+            </div>
+        </div>
+        <a class="button_custom" href="{% url 'picture:picture-add' %}">Agregar imagen</a>
+    </div>
+</header>
+{% endblock %}
+
+
+{% block nasa_blog_content %}
+    <div >
+    {% for picture in picture_list %}
+        <!-- Post preview-->
+        <div id="galery_column">
+            <a href="{% url 'picture:picture-detail' picture.id %}">
+                <h2 class="post-title">{{ picture.title_name }}</h2>
+                <h5 class="post-subtitle">Capturada por {{ picture.taken_by }} en {{ picture.taken_date }}</h5>
+                <img height="250px" width="250px" src="{{ picture.image.url }}">
+            </a>
+            <!--<p class="post-meta">
+                Creado por
+                <span style="color: #0b4956;" href="">{{ picture.owner.username }}</span>
+                ( {{ picture.created_at }} )
+            </p>-->
+        </div>
+    </div>
+        <!-- Divider-->
+        <hr class="my-4" />
+    {% endfor %}
+{% endblock %}
+
+
