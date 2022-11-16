@@ -43,6 +43,16 @@ class PictureCreateView(LoginRequiredMixin, CreateView):
         #para evitar usar mismo título y autor
         data = form.cleaned_data
         form.instance.owner = self.request.user
+        #validación que solo pueda modificar el superuser
+        print(self.request.user.is_staff)
+        if not self.request.user.is_staff:
+            messages.error(
+                self.request,
+                f"El ususario no esta habilitado para realizar esta operación",
+            )
+            form.add_error("title_name", ValidationError("Acción no válida"))
+            return super().form_invalid(form)
+            #finaliza la validación de superuser
         actual_objects = Picture.objects.filter(
             title_name=data["title_name"], taken_by=data["taken_by"]
         ).count()
