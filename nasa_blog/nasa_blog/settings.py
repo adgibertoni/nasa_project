@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'ckeditor',
     'home',
     'picture',
+    'top10',
+    'new',
 ]
 
 MIDDLEWARE = [

@@ -1,0 +1,50 @@
+{% extends 'home/index.html' %}
+{% load static %}
+
+{% block nasa_blog_title %}
+    Novedades
+{% endblock %}
+
+{% block nasa_blog_header %}
+<!-- Page Header-->
+<header class="masthead" style="background-image: url('/static/home/assets/img/home-bg.jpg')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="site-heading">
+                    <h1>NOVEDADES</h1>
+                    <span class="subheading">Lo último sobre astronomia y astronautica</span>
+                    <!-- código 2 para check de user
+                    
+                    -->
+                </div>
+            </div>
+        </div>
+        <!-- <div style="background-color: #ffffff; width: 87%;" color>Avatar URL: {{ avatar_url }}</div> -->
+        {% if not avatar_url %}                    
+            <!-- cargar avatar -->
+        {% endif %}
+    </div>
+</header>
+{% endblock %}
+
+{% block nasa_blog_content %}
+<div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-7">
+            <!-- Post preview-->
+
+            {% for new in new_list %}
+            <div class="post-preview">
+                <a href="{% url 'new:new-detail' new.id %}">
+                    <h2 class="post-title">{{ new.title }}</h2>
+                    <h3 class="post-subtitle">{{ new.header }}</h3>
+                </a>
+                <p class="post-meta">
+                    ( {{ course.created_at }} )
+                </p>
+            </div>
+            <!-- Divider-->
+            <hr class="my-4" />
+            {% endfor %}
+{% endblock %}

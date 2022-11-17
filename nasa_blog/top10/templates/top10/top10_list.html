@@ -1,0 +1,52 @@
+{% extends 'home/index.html' %}
+{% load static %}
+
+{% block nasa_blog_title %}
+    top 10
+{% endblock %}
+
+{% block nasa_blog_header %}
+<!-- Page Header-->
+<header class="masthead" style="background-image: url('/static/home/assets/img/home-bg.jpg')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="site-heading">
+                    <h1>TOP 10 NOTICIAS</h1>
+                    <!-- subtitulo por si queremos agregarle abajo-->
+                    <span class="subheading"></span>
+                    <!-- código 2 para check de userb
+                    
+                    -->
+                </div>
+            </div>
+        </div>
+        <!-- <div style="background-color: #ffffff; width: 87%;" color>Avatar URL: {{ avatar_url }}</div> -->
+        {% if not avatar_url %}                    
+            <!-- cargar avatar -->
+        {% endif %}
+    </div>
+</header>
+{% endblock %}
+
+{% block nasa_blog_content %}
+<div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-7">
+            <!-- Post preview-->
+
+            {% for top10 in top10_list %}
+            <div class="post-preview">
+                <a href="{% url 'top10:top10-detail' top10.id %}">
+                    <h2 class="post-title">{{ top10.title }}</h2>
+                    <h3 class="post-subtitle">{{ top10.header }}</h3>
+                    
+                </a>
+                <p class="post-meta">
+                    ( {{ top10.created_at }} )
+                </p>
+            </div>
+            <!-- Divider-->
+            <hr class="my-4" />
+            {% endfor %}
+{% endblock %}
