@@ -98,13 +98,36 @@
                     <h2>Info a mostrar en el home</h2>
                     <p>Puede ser un buscador...</p>
                     <!-- Buscador -->
-                    
+                    <form action="{% url 'home:search' %}" method="GET">
+                        <div>
+                            <input type="text" name="search_param" id="picture_data" placeholder="Buscar..."
+                            {% if search_param %} value="{{ search_param }}" {% endif %}
+                            >
+                            <input class="button_custom_left" type="submit" value="Buscar">
+                            <a style="color: blue" href="{% url 'home:index' %}">| Limpiar búsqueda <i class="fa fa-undo"></i></a>
+                        </div>
+                    </form>
                     <!-- Divider-->
                     <hr class="my-4" />
 
                     <!-- Si hay resultados en el buscador los presenta -->
                     <!-- Post preview-->
-                    
+                    {% if pictures %}
+                    {% for picture in pictures %}                        
+                        <div class="post-preview">
+                            <a href="{% url 'picture:picture-detail' picture.id %}">
+                                <h2 class="post-title">Noticia: {{ picture.title_name }}</h2>
+                                <img height="150px" width="150px" src="{{ picture.image.url }}">
+                                <h5 class="post-subtitle">Capturada por {{ picture.taken_by }}
+                            </a>
+                            <p class="post-meta">
+                                Creado por
+                                <span style="color: #0b4956;" href="">{{ picture.owner.username }}</span>
+                                ( {{ picture.created_at }} )
+                            </p>
+                        </div>
+		            {% endfor %}
+                    {% endif %}
                     
                     <!-- Divider-->
                     <hr class="my-4" />

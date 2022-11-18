@@ -9,6 +9,7 @@ from django.shortcuts import render
 
 from home.forms import UserRegisterForm
 from home.forms import UserUpdateForm
+from new.models import New
 
 
 def index(request):		
@@ -47,4 +48,25 @@ def user_update(request):
         request=request,
         context={"form": form},
         template_name="registration/user_form.html",
+    )
+
+
+def search(request):
+    search_param = request.GET["search_param"]
+    print("search: ", search_param)
+    context_dict = dict()
+    if search_param:
+        query = Q(title__contains=search_param)
+        query.add(Q(header__contains=search_param), Q.OR)
+        news = New.objects.filter(query)
+        context_dict.update(
+            {
+                "news": news,
+                "search_param": search_param,
+            }
+        )
+    return render(
+        request=request,
+        context=context_dict,
+        template_name="home/index.html",
     )
