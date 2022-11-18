@@ -36,7 +36,7 @@
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'top10:top10-list' %}">Top10</a></li>
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'new:new-list' %}">Novedades</a></li>
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'picture:picture-list' %}">Galería</a></li>
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="#">About</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'home:about' %}">About</a></li>
                         
                         <div class="topbar-divider d-none d-sm-block"></div>
                         <!-- código para navegación de usuario -start -->
@@ -95,12 +95,12 @@
                 <div class="col-md-10 col-lg-8 col-xl-7">
                     <!-- Post preview-->
                     {% block nasa_blog_content %}
-                    <h2>Info a mostrar en el home</h2>
-                    <p>Puede ser un buscador...</p>
+                    <h2>Te invitamos a recorrer las secciones de nuestro navegador</h2>
+                    <p>También podes buscar algo puntual dentro de las novedades, a continuación:</p>
                     <!-- Buscador -->
                     <form action="{% url 'home:search' %}" method="GET">
                         <div>
-                            <input type="text" name="search_param" id="picture_data" placeholder="Buscar..."
+                            <input type="text" name="search_param" id="new_data" placeholder="Buscar..."
                             {% if search_param %} value="{{ search_param }}" {% endif %}
                             >
                             <input class="button_custom_left" type="submit" value="Buscar">
@@ -112,25 +112,26 @@
 
                     <!-- Si hay resultados en el buscador los presenta -->
                     <!-- Post preview-->
-                    {% if pictures %}
-                    {% for picture in pictures %}                        
+                    {% if news %}
+                    {% for new in news %}                        
                         <div class="post-preview">
-                            <a href="{% url 'picture:picture-detail' picture.id %}">
-                                <h2 class="post-title">Noticia: {{ picture.title_name }}</h2>
-                                <img height="150px" width="150px" src="{{ picture.image.url }}">
-                                <h5 class="post-subtitle">Capturada por {{ picture.taken_by }}
+                            <a href="{% url 'new:new-detail' new.id %}">
+                                <h2 class="post-title">Noticia: <br>{{ new.title }}</h2>
+                                <!--<img height="150px" width="150px" src="{{ new.image.url }}">-->
+                                <h5 class="post-subtitle">{{ new.header }}</h5>
                             </a>
                             <p class="post-meta">
-                                Creado por
-                                <span style="color: #0b4956;" href="">{{ picture.owner.username }}</span>
-                                ( {{ picture.created_at }} )
+                                Subida por
+                                <span style="color: #0b4956;" href="">{{ new.owner_new.username }}</span>
+                                ( {{ new.created_at }} )
                             </p>
+                            <!-- Divider-->
+                            <hr class="my-4" />
                         </div>
+                        
 		            {% endfor %}
                     {% endif %}
-                    
-                    <!-- Divider-->
-                    <hr class="my-4" />
+
                     {% endblock %}
 
                     {% block pagination %}
@@ -162,6 +163,9 @@
                     {% endblock %}
                 </div>
             </div>
+            <!-- preview de imagenes en galeria -->
+            
+            <!-- fin de preview de imagenes en galeria -->
         </div>
         <!-- Footer-->
         <footer class="border-top">

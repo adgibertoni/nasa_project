@@ -2,23 +2,20 @@
 {% load static %}
 
 {% block nasa_blog_title %}
-Picture list
+About
 {% endblock %}
 
 {% block nasa_blog_header %}
-<header class="masthead" style="background-image: url('/static/home/assets/img/post-bg.jpg')">
+<header class="masthead" style="background-image: url('/static/home/assets/img/about-bg.jpg')">
     <div class="container position-relative px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-md-15 col-lg-16 col-xl-14">
                 <div class="site-heading">
                     <h1>NASA BLOG</h1>
-                    <span class="subheading">Galería de Imágenes</span>
+                    <span class="subheading">About</span>
                 </div>
             </div>
         </div>
-        {% if user.is_staff %} <!-- q sólo vea esto los miembros del staff-->
-        <a class="button_custom" href="{% url 'picture:picture-add' %}">Agregar imagen</a>
-        {% endif %}
     </div>
 </header>
 {% endblock %}
@@ -26,6 +23,14 @@ Picture list
 
 {% block nasa_blog_content %}
     <div>
+        <p>hello</p>
+        
+        {% for about in about %}
+        <div class="post-preview">
+            <h2 class="post-title">{{ about.description }}</h2>
+            
+        </div>  
+        {% endfor %}  
     {% for picture in picture_list %}
         <!-- Post preview-->
         <div id="galery_column">

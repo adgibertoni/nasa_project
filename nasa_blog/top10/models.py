@@ -12,3 +12,13 @@ class Top10(models.Model):
     created_at = models.DateTimeField (auto_now_add=True)
     updated_at = models.DateTimeField (auto_now=True)
 
+    class Meta:
+        unique_together = (
+            "title",
+            "header",
+        )
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return f"Noticia: {self.title}"
+

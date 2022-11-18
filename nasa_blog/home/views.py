@@ -6,10 +6,12 @@ from django.db.models import Q
 from django.forms.models import model_to_dict
 from django.shortcuts import redirect
 from django.shortcuts import render
+from django.views.generic.detail import DetailView
 
 from home.forms import UserRegisterForm
 from home.forms import UserUpdateForm
 from new.models import New
+from home.models import About
 
 
 def index(request):		
@@ -70,3 +72,24 @@ def search(request):
         context=context_dict,
         template_name="home/index.html",
     )
+
+# def about(request):
+#     about = About.objets.all()
+#     context_dict = {"about": about}
+#     return render (
+#         request=request,
+#         context=context_dict,
+#         template_name="home/about.html",
+#     )
+
+class AboutDetailView(DetailView):
+    model = About
+    template_name = "home/about.html"
+    fields = ["description"]
+
+    def get(self, request, pk):
+        description = About.objets.get(id=pk)
+        context = {
+            "description": description,
+        }
+        return render(request, self.template_name, context)
