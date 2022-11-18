@@ -6,6 +6,7 @@ from django.db.models import Q
 from django.forms.models import model_to_dict
 from django.shortcuts import redirect
 from django.shortcuts import render
+from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 
 from home.forms import UserRegisterForm
@@ -82,14 +83,19 @@ def search(request):
 #         template_name="home/about.html",
 #     )
 
-class AboutDetailView(DetailView):
-    model = About
-    template_name = "home/about.html"
-    fields = ["description"]
+# class AboutDetailView(DetailView):
+#     model = About
+#     template_name = "home/about.html"
+#     fields = ["description"]
 
-    def get(self, request, pk):
-        description = About.objets.get(id=pk)
-        context = {
-            "description": description,
-        }
-        return render(request, self.template_name, context)
+#     def get(self, request, pk):
+#         description = About.objets.get(id=pk)
+#         context = {
+#             "description": description,
+#         }
+#         return render(request, self.template_name, context)
+
+class AboutListView(ListView):
+    model = About
+    paginate_by = 1
+    template_name ="home/about_list.html"

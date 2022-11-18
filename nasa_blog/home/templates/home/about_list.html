@@ -1,0 +1,38 @@
+{% extends "home/index.html" %}
+{% load static %}
+
+{% block nasa_blog_title %}
+About
+{% endblock %}
+
+{% block nasa_blog_header %}
+<header class="masthead" style="background-image: url('/static/home/assets/img/about-bg.jpg')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-15 col-lg-16 col-xl-14">
+                <div class="site-heading">
+                    <h1>NASA BLOG</h1>
+                    <span class="subheading">About</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+{% endblock %}
+
+
+{% block nasa_blog_content %}
+    <div>
+        {% for entry in about_list %}
+        <div class="post-preview">
+            <h2 class="post-title">{{ entry.description }}</h2>
+            {% comment %} <p>línea de testeo</p> {% endcomment %}
+        </div>
+    
+        <!-- Divider-->
+        <hr class="my-4" />
+        {% endfor %}
+    </div>
+{% endblock %}
+
+

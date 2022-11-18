@@ -7,24 +7,20 @@
 
 {% block nasa_blog_header %}
 <!-- Page Header-->
-<header class="masthead" style="background-image: url('/static/home/assets/img/home-bg.jpg')">
+<header class="masthead" style="background-image: url('/static/home/assets/img/app-bg-3.jpg')">
     <div class="container position-relative px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-md-10 col-lg-8 col-xl-7">
                 <div class="site-heading">
-                    <h1>TOP 10 NOTICIAS</h1>
+                    <h1>NASA BLOG</h1>
                     <!-- subtitulo por si queremos agregarle abajo-->
-                    <span class="subheading"></span>
+                    <span class="subheading">Top10 - Las misiones más importantes</span>
                     <!-- código 2 para check de userb
                     
                     -->
                 </div>
             </div>
         </div>
-        <!-- <div style="background-color: #ffffff; width: 87%;" color>Avatar URL: {{ avatar_url }}</div> -->
-        {% if not avatar_url %}                    
-            <!-- cargar avatar -->
-        {% endif %}
     </div>
 </header>
 {% endblock %}
@@ -49,4 +45,7 @@
             <!-- Divider-->
             <hr class="my-4" />
             {% endfor %}
+        </div>
+    </div>
+</div>
 {% endblock %}
