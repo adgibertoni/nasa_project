@@ -25,7 +25,7 @@ About
     <div>
         {% for entry in about_list %}
         <div class="post-preview">
-            <h2 class="post-title">{{ entry.description }}</h2>
+            <h2 class="post-title">{{ entry.description|safe }}</h2>
             {% comment %} <p>línea de testeo</p> {% endcomment %}
         </div>
     

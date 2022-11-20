@@ -8,9 +8,9 @@ class New(models.Model):
     title = models.CharField(max_length=70, null=False, blank=False)
     header = RichTextField(null=False, blank=False)
     content = RichTextField(null=True, blank=True)
-    owner_new = models.ForeignKey (User, on_delete=models.CASCADE, default=5)
-    comments_new = models.ManyToManyField(
-        User, through="CommentNew", related_name="comments_new_owned"
+    owner = models.ForeignKey (User, on_delete=models.CASCADE)
+    commentsnew = models.ManyToManyField(
+        User, through="CommentNew", related_name="commentsnew_owned"
     )
     created_at = models.DateTimeField (auto_now_add=True)
     updated_at = models.DateTimeField (auto_now=True)
@@ -23,7 +23,7 @@ class New(models.Model):
         ordering = ["-created_at"]
 
     def __str__(self):
-        return f"Noticia: {self.title}, subida por {self.owner_new}"
+        return f"Noticia: {self.title}, subida por {self.owner}"
 
 
 class CommentNew(models.Model):
@@ -33,6 +33,6 @@ class CommentNew(models.Model):
         ]
     )
     new = models.ForeignKey(New, on_delete=models.CASCADE)
-    owner_new = models.ForeignKey(User, on_delete=models.CASCADE)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

@@ -42,9 +42,9 @@
                         <!-- código para navegación de usuario -start -->
                         {% if user.is_authenticated %}
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'home:user-update' %}">Editar Usuario</a></li>
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'logout' %}">Cerrar Sesión de {{ user.username }}</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'logout' %}">Cerrar Sesión de {{ user.username }} <i class="fa-solid fa-arrow-right-from-bracket"></i></a></li>
                         {% else %}
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'login' %}">Iniciar Sesión</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'login' %}">Iniciar Sesión <i class="fa-solid fa-arrow-right-to-bracket"></i></a></li>
                         {% endif %}
                         <!-- código para navegación de usuario -end -->
                     </ul>
@@ -118,11 +118,11 @@
                             <a href="{% url 'new:new-detail' new.id %}">
                                 <h2 class="post-title">Noticia: <br>{{ new.title }}</h2>
                                 <!--<img height="150px" width="150px" src="{{ new.image.url }}">-->
-                                <h5 class="post-subtitle">{{ new.header }}</h5>
+                                <h5 class="post-subtitle">{{ new.header|safe }}</h5>
                             </a>
                             <p class="post-meta">
                                 Subida por
-                                <span style="color: #0b4956;" href="">{{ new.owner_new.username }}</span>
+                                <span style="color: #0b4956;" href="">{{ new.owner.username }}</span>
                                 ( {{ new.created_at }} )
                             </p>
                             <!-- Divider-->
@@ -131,6 +131,30 @@
                         
 		            {% endfor %}
                     {% endif %}
+                    
+                    <!-- preview de imagenes en galeria -->
+                    <p>Algunas de las fotos que encontrarás en la galería:</p>
+                    <ul class="list-inline text-center">
+                        <li class="list-inline-item">
+                            <a href="{% url 'picture:picture-list' %}">
+                            <img height="150px" width="150px" src="/static/home/assets/img/home-bg.jpg">
+                            <br>
+                            </a><br>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="{% url 'picture:picture-detail' 1 %}">
+                            <img height="150px" width="150px" src="/media/picture/post-bg-2.jpg">
+                            <br>
+                            </a><br>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="{% url 'picture:picture-detail' 1 %}">
+                            <img height="150px" width="150px" src="{{ 1.image.url }}">
+                            <br>
+                            </a><br>
+                        </li>
+                    </ul>            
+                    <!-- fin de preview de imagenes en galeria -->                    
 
                     {% endblock %}
 
@@ -163,9 +187,6 @@
                     {% endblock %}
                 </div>
             </div>
-            <!-- preview de imagenes en galeria -->
-            
-            <!-- fin de preview de imagenes en galeria -->
         </div>
         <!-- Footer-->
         <footer class="border-top">
@@ -174,26 +195,34 @@
                     <div class="col-md-10 col-lg-8 col-xl-7">
                         <ul class="list-inline text-center">
                             <li class="list-inline-item">
-                                <a href="#!">
+                                <a href="{% url 'top10:top10-list' %}" title="Top10">
                                     <span class="fa-stack fa-lg">
                                         <i class="fas fa-circle fa-stack-2x"></i>
-                                        <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                                        <i class="fab fa-solid fa-shuttle-space fa-stack-1x fa-inverse"></i>
                                     </span>
                                 </a>
                             </li>
                             <li class="list-inline-item">
-                                <a href="#!">
+                                <a href="{% url 'new:new-list' %}" title="Novedades">
                                     <span class="fa-stack fa-lg">
                                         <i class="fas fa-circle fa-stack-2x"></i>
-                                        <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
+                                        <i class="fab fa-regular fa-newspaper fa-stack-1x fa-inverse"></i>
                                     </span>
                                 </a>
                             </li>
                             <li class="list-inline-item">
-                                <a href="#!">
+                                <a href="{% url 'picture:picture-list' %}" title="Galería">
                                     <span class="fa-stack fa-lg">
                                         <i class="fas fa-circle fa-stack-2x"></i>
-                                        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                                        <i class="fab fa-regular fa-image fa-stack-1x fa-inverse" style="--fa-inverse: white"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="https://github.com/adgibertoni/nasa_project" title="Github link">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fas fa-circle fa-stack-2x"></i>
+                                        <i class="fab fa-github fa-stack-1x fa-inverse" style="--fa-inverse: white"></i>
                                     </span>
                                 </a>
                             </li>
