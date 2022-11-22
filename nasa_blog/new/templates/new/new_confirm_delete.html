@@ -1,8 +1,8 @@
-{% extends 'home/index.html' %}
+{% extends "home/index.html" %}
 {% load static %}
 
 {% block nasa_blog_title %}
-    Novedades
+New delete
 {% endblock %}
 
 {% block nasa_blog_header %}
@@ -17,25 +17,22 @@
                 </div>
             </div>
         </div>
-        <a class="button_custom" href="{% url 'new:new-add' %}">Agregar noticia</a>
     </div>
 </header>
 {% endblock %}
 
+
 {% block nasa_blog_content %}
 
-    <!-- Post preview-->
-    {% for new in new_list %}
-    <div class="post-preview">
-        <a href="{% url 'new:new-detail' new.id %}">
-            <h2 class="post-title">{{ new.title }}</h2>
-            <h3 class="post-subtitle">{{ new.header|safe }}</h3><!-- ckeditor-->
-        </a>
-        <p class="post-meta">
-            ( {{ new.created_at }} ) subida por <span style="color: green;">{{ new.owner }}</span>
-        </p>
-    </div>
-    <!-- Divider-->
-    <hr class="my-4" />
-    {% endfor %}
+<h1>Está seguro que desea eliminar la noticia?</h1>
+<h2 class="post-title">{{ new.title }}</h2>
+<h4 class="post-subtitle">Subida por {{ new.owner }}</h4>
+
+
+<form action="" method="POST">
+    {% csrf_token %}
+    <input class="btn btn-danger" type="submit" value="Si, eliminar.">
+    <a class="btn btn-primary" href="{% url 'new:new-list' %}" >Cancelar</a>
+</form>
+
 {% endblock %}

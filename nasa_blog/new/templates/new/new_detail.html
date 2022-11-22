@@ -7,37 +7,63 @@
 
 {% block nasa_blog_header %}
 <!-- Page Header-->
-<header class="masthead" style="background-image: url('/static/home/assets/img/home-bg.jpg')">
+<header class="masthead" style="background-image: url('/static/home/assets/img/app-bg-2.png')">
     <div class="container position-relative px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-md-10 col-lg-8 col-xl-7">
                 <div class="site-heading">
-                    <h1>NOVEDADES</h1>
-                    <span class="subheading">Lo último sobre astronomia y astronautica</span>
-                    <!-- código 2 para check de user
-                    
-                    -->
+                    <h1>NASA BLOG</h1>
+                    <span class="subheading">Novedades: Lo último sobre astronomía y astronáutica</span>
                 </div>
             </div>
         </div>
-        <!-- <div style="background-color: #ffffff; width: 87%;" color>Avatar URL: {{ avatar_url }}</div> -->
-        {% if not avatar_url %}                    
-            <!-- cargar avatar -->
-        {% endif %}
+        <a class="button_custom" href="{% url 'new:new-add' %}">Agregar noticia</a>
     </div>
 </header>
 {% endblock %}
 
 {% block nasa_blog_content %}
-<div class="container px-4 px-lg-5">
-    <div class="row gx-4 gx-lg-5 justify-content-center">
-        <div class="col-md-10 col-lg-8 col-xl-7">
-            <!-- Post preview-->
+
 <!-- Post preview-->
 <div class="post-preview">
     <h3 class="post-subtitle">{{ new.title }}</h3>
     <p class="post-meta">
-        ( {{ new.created_at }} )
-    <p class="card-text ">{{ new.content }}</p>
-            <hr class="my-4" />
+        ( {{ new.created_at }} ) subida por {{ new.owner}}</p>
+    <p class="card-text ">{{ new.content|safe }}</p>
+    <a class="button_custom_left" href="{% url 'new:new-list' %}">Volver a Novedades</a>
+    <!-- Update-Delete link only for the owner -->
+    {% if user == new.owner or user.is_superuser %}
+        <p style="text-align: center">
+            <a href="{% url 'new:new-update' new.id %}">
+                <i class="fa fa-pencil" style="color: #1c1c91;"></i> Modificar Noticia
+            </a>
+            &ensp; | &ensp;
+            <a href="{% url 'new:new-delete' new.id %}">
+                <i class="fa fa-trash" style="color: #881a1a;"></i> Eliminar Noticia
+            </a>
+        </p>
+    {% endif %}<!--up to here -->
+    <hr class="my-4" />
+    
+    <!-- Comment creation -->
+    <form method="POST" action="{% url 'new:commentnew-create' new.id %}">
+        {% csrf_token %}
+        {{ commentnew_form }}
+    <input class="button_custom_left" type="submit" value="Publicar comentario">
+    </form>
+    {% if not commentsnew %}
+        <p></p>
+    {% endif %}
+
+    <!-- Comments list -->
+    {% for comment in commentsnew %}
+        <p> ({{ comment.owner.username }} | {{ comment.updated_at }}): <br>
+            {{ comment.text }}            
+            {% if user == comment.owner or user.is_superuser %} - 
+            <a href="{% url 'new:commentnew-delete' comment.id %}"><i class="fa fa-trash" style="color: #881a1a;"></i></a>
+            {% endif %}
+        </p>
+    {% endfor %}
+</div>        
+    
 {% endblock %}

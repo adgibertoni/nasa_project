@@ -19,7 +19,7 @@ class Picture(models.Model):
             "title_name",
             "taken_by",
         )
-        ordering = ["-created_at"]
+        ordering = ["-taken_date"]
 
     def __str__(self):
         return f"Imagen {self.title_name}, tomada por {self.taken_by}"

@@ -1,0 +1,43 @@
+{% extends "home/index.html" %}
+{% load static %}
+
+<!-- ckeditor-->
+{% block extrahead %}
+<script>window.CKEDITOR_BASEPATH = '/static/ckeditor/ckeditor/';</script>
+{{ block.super }}
+{% endblock %}
+<!-- ckeditor-->
+
+{% block nasa_blog_title %}
+New Create-Update Form
+{% endblock %}
+
+{% block nasa_blog_header %}
+<header class="masthead" style="background-image: url('/static/home/assets/img/app-bg-2.png')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="site-heading">
+                    <h1>NASA BLOG</h1>
+                    <span class="subheading">Crear/Editar Noticia</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+{% endblock %}
+
+{% block nasa_blog_content %}
+    <div>
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.media }} <!-- ckeditor-->
+            {{ form.as_p }}
+            <input type="submit" class="btn btn-primary" value="Guardar/Actualizar" />
+        </form>
+    </div>
+    <!-- Divider-->
+    <hr class="my-4" />
+    <a class="button_custom_left" href="{% url 'new:new-list' %}">Volver a Novedades</a>
+    <hr class="my-4" />
+{% endblock %}

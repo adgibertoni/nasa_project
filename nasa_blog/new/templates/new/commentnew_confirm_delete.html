@@ -1,0 +1,37 @@
+{% extends "home/index.html" %}
+{% load static %}
+
+{% block nasa_blog_title %}
+Comentario delete
+{% endblock %}
+
+{% block nasa_blog_header %}
+<!-- Page Header-->
+<header class="masthead" style="background-image: url('/static/home/assets/img/app-bg-2.png')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="site-heading">
+                    <h1>NASA BLOG</h1>
+                    <span class="subheading">Elimiar Comentario</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+{% endblock %}
+
+
+{% block nasa_blog_content %}
+
+<h1>Estás seguro de eliminar el siguiente Comentario?</h1>
+<p>Creado por: {{ commentnew.owner.username }}</p>
+<p>{{ commentnew.text }}</p>
+
+<form action="" method="POST">
+    {% csrf_token %}
+    <input class="btn btn-danger" type="submit" value="Sí, eliminar.">
+    <a class="btn btn-primary" href="{% url 'new:new-detail' commentnew.new.id %}" >Cancelar</a>
+</form>
+
+{% endblock %}

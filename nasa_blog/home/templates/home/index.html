@@ -36,15 +36,15 @@
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'top10:top10-list' %}">Top10</a></li>
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'new:new-list' %}">Novedades</a></li>
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'picture:picture-list' %}">Galería</a></li>
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="#">About</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'home:about-list' %}">About</a></li>
                         
                         <div class="topbar-divider d-none d-sm-block"></div>
                         <!-- código para navegación de usuario -start -->
                         {% if user.is_authenticated %}
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'home:user-update' %}">Editar Usuario</a></li>
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'logout' %}">Cerrar Sesión de {{ user.username }}</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'logout' %}">Cerrar Sesión de {{ user.username }} <i class="fa-solid fa-arrow-right-from-bracket"></i></a></li>
                         {% else %}
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'login' %}">Iniciar Sesión</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'login' %}">Iniciar Sesión <i class="fa-solid fa-arrow-right-to-bracket"></i></a></li>
                         {% endif %}
                         <!-- código para navegación de usuario -end -->
                     </ul>
@@ -95,19 +95,67 @@
                 <div class="col-md-10 col-lg-8 col-xl-7">
                     <!-- Post preview-->
                     {% block nasa_blog_content %}
-                    <h2>Info a mostrar en el home</h2>
-                    <p>Puede ser un buscador...</p>
+                    <h2>Te invitamos a recorrer las secciones de nuestro navegador</h2>
+                    <p>También podes buscar algo puntual dentro de las novedades, a continuación:</p>
                     <!-- Buscador -->
-                    
+                    <form action="{% url 'home:search' %}" method="GET">
+                        <div>
+                            <input type="text" name="search_param" id="new_data" placeholder="Buscar..."
+                            {% if search_param %} value="{{ search_param }}" {% endif %}
+                            >
+                            <input class="button_custom_left" type="submit" value="Buscar">
+                            <a style="color: blue" href="{% url 'home:index' %}">| Limpiar búsqueda <i class="fa fa-undo"></i></a>
+                        </div>
+                    </form>
                     <!-- Divider-->
                     <hr class="my-4" />
 
                     <!-- Si hay resultados en el buscador los presenta -->
                     <!-- Post preview-->
+                    {% if news %}
+                    {% for new in news %}                        
+                        <div class="post-preview">
+                            <a href="{% url 'new:new-detail' new.id %}">
+                                <h2 class="post-title">Noticia: <br>{{ new.title }}</h2>
+                                <!--<img height="150px" width="150px" src="{{ new.image.url }}">-->
+                                <h5 class="post-subtitle">{{ new.header|safe }}</h5>
+                            </a>
+                            <p class="post-meta">
+                                Subida por
+                                <span style="color: #0b4956;" href="">{{ new.owner.username }}</span>
+                                ( {{ new.created_at }} )
+                            </p>
+                            <!-- Divider-->
+                            <hr class="my-4" />
+                        </div>
+                        
+		            {% endfor %}
+                    {% endif %}
                     
-                    
-                    <!-- Divider-->
-                    <hr class="my-4" />
+                    <!-- preview de imagenes en galeria -->
+                    <p>Algunas de las fotos que encontrarás en la galería:</p>
+                    <ul class="list-inline text-center">
+                        <li class="list-inline-item">
+                            <a href="{% url 'picture:picture-list' %}">
+                            <img height="150px" width="150px" src="/media/picture/nasa-earth-1.png">
+                            <br>
+                            </a><br>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="{% url 'picture:picture-list' %}">
+                            <img height="150px" width="150px" src="/media/picture/nebulosa-carina.png">
+                            <br>
+                            </a><br>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="{% url 'picture:picture-list' %}">
+                            <img height="150px" width="150px" src="/media/picture/curiosity-mars.png">
+                            <br>
+                            </a><br>
+                        </li>
+                    </ul>            
+                    <!-- fin de preview de imagenes en galeria -->                    
+
                     {% endblock %}
 
                     {% block pagination %}
@@ -147,26 +195,34 @@
                     <div class="col-md-10 col-lg-8 col-xl-7">
                         <ul class="list-inline text-center">
                             <li class="list-inline-item">
-                                <a href="#!">
+                                <a href="{% url 'top10:top10-list' %}" title="Top10">
                                     <span class="fa-stack fa-lg">
                                         <i class="fas fa-circle fa-stack-2x"></i>
-                                        <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                                        <i class="fab fa-solid fa-shuttle-space fa-stack-1x fa-inverse"></i>
                                     </span>
                                 </a>
                             </li>
                             <li class="list-inline-item">
-                                <a href="#!">
+                                <a href="{% url 'new:new-list' %}" title="Novedades">
                                     <span class="fa-stack fa-lg">
                                         <i class="fas fa-circle fa-stack-2x"></i>
-                                        <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
+                                        <i class="fab fa-regular fa-newspaper fa-stack-1x fa-inverse"></i>
                                     </span>
                                 </a>
                             </li>
                             <li class="list-inline-item">
-                                <a href="#!">
+                                <a href="{% url 'picture:picture-list' %}" title="Galería">
                                     <span class="fa-stack fa-lg">
                                         <i class="fas fa-circle fa-stack-2x"></i>
-                                        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                                        <i class="fab fa-regular fa-image fa-stack-1x fa-inverse" style="--fa-inverse: white"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="https://github.com/adgibertoni/nasa_project" title="Github link">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fas fa-circle fa-stack-2x"></i>
+                                        <i class="fab fa-github fa-stack-1x fa-inverse" style="--fa-inverse: white"></i>
                                     </span>
                                 </a>
                             </li>

@@ -7,46 +7,44 @@
 
 {% block nasa_blog_header %}
 <!-- Page Header-->
-<header class="masthead" style="background-image: url('/static/home/assets/img/home-bg.jpg')">
+<header class="masthead" style="background-image: url('/static/home/assets/img/app-bg-3.jpg')">
     <div class="container position-relative px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-md-10 col-lg-8 col-xl-7">
                 <div class="site-heading">
-                    <h1>TOP 10 NOTICIAS</h1>
+                    <h1>NASA BLOG</h1>
                     <!-- subtitulo por si queremos agregarle abajo-->
-                    <span class="subheading"></span>
+                    <span class="subheading">Top10 - Las misiones más importantes</span>
                     <!-- código 2 para check de userb
                     
                     -->
                 </div>
             </div>
         </div>
-        <!-- <div style="background-color: #ffffff; width: 87%;" color>Avatar URL: {{ avatar_url }}</div> -->
-        {% if not avatar_url %}                    
-            <!-- cargar avatar -->
-        {% endif %}
     </div>
 </header>
 {% endblock %}
 
 {% block nasa_blog_content %}
-<div class="container px-4 px-lg-5">
-    <div class="row gx-4 gx-lg-5 justify-content-center">
-        <div class="col-md-10 col-lg-8 col-xl-7">
             <!-- Post preview-->
 
             {% for top10 in top10_list %}
             <div class="post-preview">
                 <a href="{% url 'top10:top10-detail' top10.id %}">
-                    <h2 class="post-title">{{ top10.title }}</h2>
-                    <h3 class="post-subtitle">{{ top10.header }}</h3>
+                    <h2 class="post-title">
+                        <span class="fa-stack fa-lg">
+                            <i class="fas fa-circle fa-stack-1x"></i>
+                            <i class="fab fa-regular fa-star fa-stack-1x fa-inverse" style="--fa-inverse: white"></i>
+                        </span>{{ top10.title }}</h2>
+                    <h3 class="post-subtitle">( {{ top10.year }} )</h3>
+                    <h3 class="post-subtitle">{{ top10.header|safe }}</h3>
                     
                 </a>
-                <p class="post-meta">
+                <!-- <p class="post-meta">
                     ( {{ top10.created_at }} )
-                </p>
+                </p> -->
             </div>
             <!-- Divider-->
             <hr class="my-4" />
-            {% endfor %}
+            {% endfor %}        
 {% endblock %}
