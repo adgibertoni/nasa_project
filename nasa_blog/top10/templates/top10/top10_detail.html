@@ -28,11 +28,15 @@
 {% block nasa_blog_content %}
 <!-- Post preview-->
 <div class="post-preview">
-    <h3 class="post-subtitle">{{ top10.title }}</h3>
-    
-    <p class="post-meta">( {{ top10.created_at }} )</p>
-    <p class="card-text ">{{ top10.content }}</p>
+    <h3 class="post-subtitle"><span class="fa-stack fa-lg">
+        <i class="fas fa-circle fa-stack-1x"></i>
+        <i class="fab fa-regular fa-star fa-stack-1x fa-inverse" style="--fa-inverse: white"></i>
+    </span>{{ top10.title }} | Año {{ top10.year }}</h3>
+    <p class="post-meta">{{ top10.header|safe }}</p>
+    <img height="420px" width="600px" src="{{ top10.image.url }}">
+    <p class="card-text ">{{ top10.content|safe }}</p>
     <a class="button_custom_left" href="{% url 'top10:top10-list' %}">Volver a la lista Top10</a>
 
     <hr class="my-4" />
+</div>
 {% endblock %}

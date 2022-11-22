@@ -26,26 +26,25 @@
 {% endblock %}
 
 {% block nasa_blog_content %}
-<div class="container px-4 px-lg-5">
-    <div class="row gx-4 gx-lg-5 justify-content-center">
-        <div class="col-md-10 col-lg-8 col-xl-7">
             <!-- Post preview-->
 
             {% for top10 in top10_list %}
             <div class="post-preview">
                 <a href="{% url 'top10:top10-detail' top10.id %}">
-                    <h2 class="post-title">{{ top10.title }}</h2>
-                    <h3 class="post-subtitle">{{ top10.header }}</h3>
+                    <h2 class="post-title">
+                        <span class="fa-stack fa-lg">
+                            <i class="fas fa-circle fa-stack-1x"></i>
+                            <i class="fab fa-regular fa-star fa-stack-1x fa-inverse" style="--fa-inverse: white"></i>
+                        </span>{{ top10.title }}</h2>
+                    <h3 class="post-subtitle">( {{ top10.year }} )</h3>
+                    <h3 class="post-subtitle">{{ top10.header|safe }}</h3>
                     
                 </a>
-                <p class="post-meta">
+                <!-- <p class="post-meta">
                     ( {{ top10.created_at }} )
-                </p>
+                </p> -->
             </div>
             <!-- Divider-->
             <hr class="my-4" />
-            {% endfor %}
-        </div>
-    </div>
-</div>
+            {% endfor %}        
 {% endblock %}
