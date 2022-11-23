@@ -16,7 +16,9 @@ Picture detail
                 </div>
             </div>
         </div>
+        {% if user.is_staff %} <!-- q sólo vea esto los miembros del staff-->
         <a class="button_custom" href="{% url 'picture:picture-add' %}">Agregar imagen</a>
+        {% endif %}
     </div>
 </header>
 {% endblock %}

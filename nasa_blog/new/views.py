@@ -15,7 +15,7 @@ from new.models import CommentNew
 
 class NewListView(ListView):
     model = New
-    paginated_by = 3
+    paginate_by = 4
     template_name = "picture/new_list.html"
 
 class NewDetailView(DetailView):
